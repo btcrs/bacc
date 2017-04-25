@@ -25,68 +25,147 @@
       <div class="slides">
         <section>
           <h1>Victor</h1>
-          <h3>Building Monitored, Secured, And Self-sustaining IOT Hydroponic Gardens</h3>
+          <h3>Building Monitored, Secured, And Self-Sustaining Hydroponic Gardens</h3>
+          <img src="imgs/lettuce.png" style="background:none; border:none; box-shadow:none; height:200px;">
+          <h6>Ben Carothers</h6>
         </section>
+
+
         <section>
-            <h1> Why? </h1>
-            <p class="fragment"> Gardening is hard</p>
-						<p class="fragment">IoT is popular</p>
-            <p class="fragment">The population is big</p>
-
-						<aside class="notes">
-              As it turns out, keeping a garden is hard. At the very least I'm bad at it.
-
-              IoT is a pretty big field already, and it's growing dramatically. There's a lot of change in the industry that
-              I expect will happen over the next few years because there are a few major problems holding IoT back.
-
-              Data aggregation through IoT sensors is capable of helping solve big problems. The population is still growing
-              rapidly and a set up like the one I'm about to show could help feed them.
-						</aside>
+          <h1>Key Points</h1>
+          <ul>
+            <li>Why I built Victor</li>
+            <li>How I built Victor</li>
+            <li>Why the design decisions are important</li>
+          <ul>
         </section>
+
+        <section>
+          <h1>Victor</h1>
+          <p class="fragment">Victor is a framework</p>
+          <p class="fragment">Focuses on data aquistion</p>
+          <p class="fragment">Includes mechanisms for control and configuration</p>
+        </section>
+
+        <section>
+          <h1> Why? </h1>
+          <p>I find a lot of value in gardening</p>
+          <img src="imgs/garden.jpg" style="background:none; border:none; box-shadow:none; height:250px;">
+          <p class="fragment"> Gardening is hard</p>
+        </section>
+
+        <section>
+            <h3>Technology should make it easier</h3>
+            <img src="imgs/sprinkler.jpg" style="background:none; border:none; box-shadow:none;">
+        </section>
+
+        <section>
+            <h3>Open Agriculture</h3>
+            <ul>
+              <li class="fragment">Global population will be over 9 billion by 2050</li>
+              <li class="fragment">We're using most of the arable land and too much water</li>
+              <li class="fragment">Food production is not distributed among all food eaters</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Hydroponics </h3>
+            <p>Growing plants suspended in an inert medium without soil by using mineral nutrient solutions in a water solvent</p>
+        </section>
+
+        <section>
+            <h3>Nutrient Film Technique</h3>
+            <ul>
+              <li class="fragment">Semi-closed system</li>
+              <li class="fragment">Higher yields</li>
+              <li class="fragment">Can grow anywhere</li>
+            </ul>
+        </section>
+
+        <section>
+            <h4>Issues</h4>
+            <ul>
+              <li class="fragment">Requires constant monitoring and maintenace</li>
+              <li class="fragment">Succeptible to failure and disease</li>
+              <li class="fragment">It's only semi-closed</li>
+            </ul>
+        </section>
+
+        <section>
+            <h4>Victor can help!</h4>
+            <ul>
+              <li class="fragment">Automates monitoring and maintenace</li>
+              <li class="fragment">Can adapt to any installation</li>
+              <li class="fragment">Provides a quick, pretty view into the state of the garden</li>
+            </ul>
+        </section>
+
+        <section>
+            <h4>Design Criteria</h4>
+            <p>Victor should be <b>Scalable</b>, <b>Extensible</b>, and <b>Secure</b></p>
+        </section>
+
         <section>
             <h1> What? </h1>
-            <p class="fragment">Victor is a framework</p>
-						<p class="fragment">Focus on extensibility and security</p>
-            <p class="fragment">Primarily deals with data aggreagation</p>
+            <ul>
+              <li class="fragment">Victor is a framework</li>
+              <li class="fragment">Service oriented architecture</li>
+              <li class="fragment">Parts are swappable</li>
+            </ul>
+        </section>
 
-						<aside class="notes">
-              I put a lot of focus and effort into making Victor extensible. For that reason, I consider the project to be a framework
-              rather than a standalone project. I've made some opionated choices throughout, but they're very changeable.
-						</aside>
-        </section>
         <section>
-            <h1> Service Oriented Architecture </h1>
-            <p class="fragment">Three Key Components</p>
-						<p class="fragment">Container-gardening</p>
-            <p class="fragment">Gardeners-log</p>
-            <p class="fragment">Victor</p>
-						<aside class="notes">
-						</aside>
+            <h1> Services </h1>
+            <ul>
+              <li class="fragment">Container-Gardening</li>
+              <li class="fragment">Gardeners-Log</li>
+              <li class="fragment">Gardeners-Shed</li>
+              <li class="fragment">Victor</li>
+            </ul>
         </section>
+
         <section>
             <h1>Container-Gardening</h1>
-            <p class="fragment"></p>
-						<aside class="notes">
-						</aside>
+            <p>Deals with taking measurements, reporting them to the database, and controlling active components</p>
         </section>
+
         <section>
             <h1>Gardeners-Log</h1>
-            <p class="fragment"></p>
-						<aside class="notes">
-						</aside>
+            <p>Handles all CRUD operations for the database</p>
         </section>
+
+        <section>
+            <h1>Gardeners-Shed</h1>
+            <p>Mediates communication between users and the garden</p>
+            <aside class="notes">
+            </aside>
+        </section>
+
         <section>
             <h1>Victor</h1>
-            <p class="fragment"></p>
-						<aside class="notes">
-						</aside>
+            <p>Uses the other three services to provide a valuable user experience</p>
         </section>
+
+        <section>
+            <h1>Security</h1>
+            <ul>
+              <li class="fragment">Passwords are important</li>
+              <li class="fragment">Open data</li>
+              <li class="fragment">Use best practices</li>
+              <li class="fragment">Use third-party providers</li>
+            </ul>
+        </section>
+
         <section>
             <h1>Room For Growth</h1>
-            <p class="fragment"></p>
-						<aside class="notes">
-						</aside>
+            <ul>
+              <li class="fragment">Victor can scale</li>
+              <li class="fragment">Everyone wants data</li>
+              <li class="fragment">New parts and sensors</li>
+              <li class="fragment">Issues in IoT</li>
+            </ul>
         </section>
+
         <section>
             <h1>Questions?</h1>
         </section>
