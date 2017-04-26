@@ -30,21 +30,18 @@
           <h6>Ben Carothers</h6>
         </section>
 
-
         <section>
-          <h1>Key Points</h1>
+          <h1>Victor is...</h1>
           <ul>
-            <li>Why I built Victor</li>
-            <li>How I built Victor</li>
-            <li>Why the design decisions are important</li>
-          <ul>
+            <li class="fragment">Built to help keep your garden alive</li>
+            <li class="fragment">Focused on collecting data</li>
+            <li class="fragment">An opinionated framework</li>
+          </ul>
         </section>
 
         <section>
-          <h1>Victor</h1>
-          <p class="fragment">Victor is a framework</p>
-          <p class="fragment">Focuses on data aquistion</p>
-          <p class="fragment">Includes mechanisms for control and configuration</p>
+            <h3>Design Criteria</h3>
+            <p>Victor should be <b>Scalable</b>, <b>Extensible</b>, and <b>Secure</b></p>
         </section>
 
         <section>
@@ -63,59 +60,29 @@
             <h3>Open Agriculture</h3>
             <ul>
               <li class="fragment">Global population will be over 9 billion by 2050</li>
-              <li class="fragment">We're using most of the arable land and too much water</li>
-              <li class="fragment">Food production is not distributed among all food eaters</li>
+              <li class="fragment">We're using most arable land and too much water</li>
+              <li class="fragment">Food production isn't distributed among food eaters</li>
             </ul>
         </section>
 
         <section>
-            <h3>Hydroponics </h3>
-            <p>Growing plants suspended in an inert medium without soil by using mineral nutrient solutions in a water solvent</p>
-        </section>
-
-        <section>
-            <h3>Nutrient Film Technique</h3>
+            <h3>Hydroponics</h3>
+            <h5 class="fragment">Pros</h5>
             <ul>
+              <li class="fragment">Higher yields compared to soil gardens</li>
+              <li class="fragment">Can grow where generally inhospitable</li>
               <li class="fragment">Semi-closed system</li>
-              <li class="fragment">Higher yields</li>
-              <li class="fragment">Can grow anywhere</li>
             </ul>
-        </section>
-
-        <section>
-            <h3>Issues</h3>
+            <h5 class="fragment">Cons</h5>
             <ul>
-              <li class="fragment">Requires constant monitoring and maintenace</li>
-              <li class="fragment">Succeptible to failure and disease</li>
+              <li class="fragment">Constant monitoring and maintenace</li>
+              <li class="fragment">System failure and disease</li>
               <li class="fragment">It's only semi-closed</li>
             </ul>
         </section>
 
         <section>
-            <h3>Victor can help!</h3>
-            <ul>
-              <li class="fragment">Automates monitoring and maintenace</li>
-              <li class="fragment">Can adapt to any installation</li>
-              <li class="fragment">Provides a quick, pretty view into the state of the garden</li>
-            </ul>
-        </section>
-
-        <section>
-            <h3>Design Criteria</h3>
-            <p>Victor should be <b>Scalable</b>, <b>Extensible</b>, and <b>Secure</b></p>
-        </section>
-
-        <section>
-            <h1> What? </h1>
-            <ul>
-              <li class="fragment">Victor is a framework</li>
-              <li class="fragment">Service oriented architecture</li>
-              <li class="fragment">Parts are swappable</li>
-            </ul>
-        </section>
-
-        <section>
-            <h1> Services </h1>
+            <h3> Service Oriented Architecture</h3>
             <ul>
               <li class="fragment">Container-Gardening</li>
               <li class="fragment">Gardeners-Log</li>
@@ -125,34 +92,116 @@
         </section>
 
         <section>
-            <h1>Container-Gardening</h1>
-            <p>Deals with taking measurements, reporting them to the database, and controlling active components</p>
+            <section>
+                <h1>Container-Gardening</h1>
+                <p>Deals with taking measurements, reporting them to the database, and controlling active components</p>
+            </section>
+
+            <section>
+                <h3>Raspberry Pi</h3>
+                <img src="imgs/pi.jpg" style="background:none; border:none; box-shadow:none; height:450px;">
+            </section>
+
+            <section>
+                <h3>Its Parts</h3>
+                <ul>
+                  <li class="fragment">The Gardener</li>
+                  <li class="fragment">Controllers</li>
+                  <li class="fragment">Sensors and Components</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Sensors</h3>
+                <img src="imgs/temp.jpg" style="background:none; border:none; box-shadow:none; height:450px;">
+            </section>
+
+            <section>
+                <h3>Each Sensor Runs in a Container</h3>
+                  <pre><code class="hljs" data-trim contenteditable>
+                    FROM resin/rpi-raspbian:jessie
+
+                    RUN apt-get update && apt-get install -y \
+                        git-core \
+                        python \
+                        python-pip \
+
+                    RUN pip install w1thermsensor
+                    RUN pip install schedule 
+
+                    ENV PYTHONPATH="${PYTHONPATH}:/data/container-gardening/reporter/"
+                    RUN git clone https://github.com/btcrs/container-gardening.git /data/container-gardening
+
+                    CMD ["python", "/data/container-gardening/temperature/1wire/simple_temperature.py"]
+                  </code></pre>
+
+                  <p>docker build -t btcrs/temperature .</p>
+            </section>
+
+            <section>
+                <h3>Containers are Composed Into Machine Deployments</h3>
+                <pre><code class="hljs" data-trim contenteditable>
+                    version: '2'
+                    services:
+                      temperature:
+                        environment:
+                         - GARDENER
+                        build: ../../dockerfiles/temperature/temperature/
+                        privileged: true
+                        devices:
+                         - /dev/ttyAMA0:/dev/ttyAMA0
+                         - /dev/mem:/dev/mem
+                        volumes:
+                         - /data
+                         ...
+                </code></pre>
+            </section>
         </section>
 
         <section>
-            <h1>Gardeners-Log</h1>
-            <p>Handles all CRUD operations for the database</p>
-        </section>
+            <section>
+                <h1>The Other Services</h1>
+            </section>
 
-        <section>
-            <h1>Gardeners-Shed</h1>
-            <p>Mediates communication between users and the garden</p>
-            <aside class="notes">
-            </aside>
-        </section>
+            <section>
+                <h1>Victor</h1>
+                <p>Uses the other three services to provide a valuable user experience</p>
+                <ul>
+                  <li class="fragment">Angular Web Application</li>
+                  <li class="fragment">Hosted on Github Pages</li>
+                  <li class="fragment">Primarily Time Series Charts</li>
+                </ul>
+            </section>
 
-        <section>
-            <h1>Victor</h1>
-            <p>Uses the other three services to provide a valuable user experience</p>
+            <section>
+                <h1>Gardeners-Log</h1>
+                <p>Handles all CRUD operations for the database</p>
+                <ul>
+                  <li class="fragment">Serverless</li>
+                  <li class="fragment">Hosted with Amazon Lambda</li>
+                  <li class="fragment">Node functions and DynamoDB</li>
+                </ul>
+            </section>
+
+            <section>
+                <h1>Gardeners-Shed</h1>
+                <p>Mediates communication between users and the garden</p>
+                <ul>
+                  <li class="fragment">Similar to Gardeners-Log's Architecture</li>
+                  <li class="fragment">Relays messages</li>
+                  <li class="fragment">Protects against unauthorized control</li>
+                </ul>
+            </section>
         </section>
 
         <section>
             <h1>Security</h1>
             <ul>
               <li class="fragment">Passwords are important</li>
-              <li class="fragment">Open data</li>
               <li class="fragment">Use best practices</li>
               <li class="fragment">Use third-party providers</li>
+              <li class="fragment">Limit the number of Communicators</li>
+              <li class="fragment">Open data</li>
             </ul>
         </section>
 
