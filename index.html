@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="css/reveal.css">
     <link rel="stylesheet" href="css/theme/solarized.css">
 
-    <!-- Theme used for syntax highlighting of code -->
     <link rel="stylesheet" href="lib/css/zenburn.css">
 
     <script>
@@ -65,7 +64,7 @@
             </ul>
         </section>
 
-        <section>
+       <section>
             <h3>Hydroponics</h3>
             <h5 class="fragment">Pros</h5>
             <ul>
@@ -80,6 +79,16 @@
               <li class="fragment">It's only semi-closed</li>
             </ul>
         </section>
+
+       <section>
+         <h3>NFT</h3>
+         <img src="imgs/nft.jpg" style="background:none; border:none; box-shadow:none; height:450px;">
+       </section>
+
+       <section>
+         <h3>Gardening is hard</h3>
+         <img src="imgs/pvc.jpg" style="background:none; border:none; box-shadow:none; height:450px;">
+       </section>
 
         <section>
             <h3> Service Oriented Architecture</h3>
@@ -165,7 +174,9 @@
 
             <section>
                 <h1>Victor</h1>
-                <p>Uses the other three services to provide a valuable user experience</p>
+                <blockquote>
+                  Uses the other three services to provide a valuable user experience
+                </blockquote>
                 <ul>
                   <li class="fragment">Angular Web Application</li>
                   <li class="fragment">Hosted on Github Pages</li>
@@ -174,8 +185,34 @@
             </section>
 
             <section>
+                <h3>Dashboard</h3>
+                <img src="imgs/dash.png" style="background:none; border:none; box-shadow:none; height:450px;">
+            </section>
+
+            <section>
+            <h3>Dashboard</h3>
+            <pre><code class="hljs" data-trim contenteditable>
+<div class="dash-page">
+    <div class="dash col-md-12" ng-controller="DashboardController as Chartist">
+        <div class="row" ng-repeat='row in Chartist.charts | groupBy:2'>
+            <div ng-repeat="item in row" class="col-md-6">
+              <chart data="item.data" 
+                options="item"
+                ng-if="item.data"
+                convert-date-field="{{date}}">
+              </chart>
+            </div>
+        </div>
+    </div>
+</div>
+                </code></pre>
+            </section>
+
+            <section>
                 <h1>Gardeners-Log</h1>
-                <p>Handles all CRUD operations for the database</p>
+                <blockquote>
+                  <p>Handles all CRUD operations for the database</p>
+                </blockquote>
                 <ul>
                   <li class="fragment">Serverless</li>
                   <li class="fragment">Hosted with Amazon Lambda</li>
@@ -184,8 +221,33 @@
             </section>
 
             <section>
+                <h3>Function</h3>
+                <pre><code class="hljs" data-trim contenteditable>
+const dynamoDb = new AWS.DynamoDB.DocumentClient();
+module.exports.create = (event, context, callback) => {
+  const params = {
+    TableName: process.env.DYNAMODB_TABLE,
+    Item: {
+      parameter: data.parameter,
+      value: data.value,
+      createdAt: timestamp,
+    },
+  };
+  dynamoDb.put(params, (error, result) => {
+    if (error) {
+      console.error(error);
+      return;
+    }
+  });
+};
+            </code></pre>
+            </section>
+
+            <section>
                 <h1>Gardeners-Shed</h1>
-                <p>Mediates communication between users and the garden</p>
+                <blockquote>
+                  Mediates communication between users and the garden
+                </blockquote>
                 <ul>
                   <li class="fragment">Similar to Gardeners-Log's Architecture</li>
                   <li class="fragment">Relays messages</li>
