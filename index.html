@@ -155,6 +155,25 @@
                 <h3>Sensors</h3>
                 <img src="imgs/temp.jpg" style="background:none; border:none; box-shadow:none; height:450px;">
             </section>
+            <section>
+
+            <h3>Measurement</h3>
+            <pre><code class="hljs" data-trim contenteditable>
+import w1thermsensor 
+import schedule
+import time
+import sys
+sys.path.insert(0, '../../reporter')
+from reporter import reporter
+
+reporter = reporter()
+
+def job():
+    sensors = w1thermsensor.W1ThermSensor.get_available_sensors()
+    for sensor in sensors :
+        reporter.send_data("temperature", sensor.get_temperature())
+            </code></pre>
+            </section>
 
             <section>
                 <h3>Each Sensor Runs in a Container</h3>
