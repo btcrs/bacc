@@ -27,27 +27,43 @@
           <h3>Building Monitored, Secured, And Self-Sustaining Hydroponic Gardens</h3>
           <img src="imgs/lettuce.png" style="background:none; border:none; box-shadow:none; height:200px;">
           <h6>Ben Carothers</h6>
+          <aside class='notes'>
+              Good morning, welcome, and thank you all for coming to my presentation. My name is Ben Carothers, and today I'll be presenting my project titled...
+          </aside>
         </section>
 
         <section>
           <h1>Victor is...</h1>
           <ul>
-            <li class="fragment">Built to help keep your garden alive</li>
+            <li class="fragment">A solution to help grow more food</li>
             <li class="fragment">Focused on collecting data</li>
-            <li class="fragment">An opinionated framework</li>
+            <li class="fragment">A framework</li>
           </ul>
+          <aside class='notes'>
+          <ul>
+            <li>Blind trial and error</li>
+            <li>Too many inputs</li>
+            <li>Sensors provide more value per dollar </li>
+            <li>Abstraction from this immediate problem</li>
+          </ul>
+          </aside>
         </section>
 
         <section>
             <h3>Design Criteria</h3>
             <p>Victor should be <b>Scalable</b>, <b>Extensible</b>, and <b>Secure</b></p>
+          <aside class='notes'>
+          <ul>
+            <li>Gardens describe a number of different food systems</li>
+            <li>Likewise inputs can shift in priority</li>
+            <li>Should protect food and shouldn't act as a stepping stone for other attacks</li>
+          </ul>
+          </aside>
         </section>
 
         <section>
-          <h1> Why? </h1>
-          <p>I find a lot of value in gardening</p>
+          <h1>Gardening is Hard</h1>
           <img src="imgs/garden.jpg" style="background:none; border:none; box-shadow:none; height:250px;">
-          <p class="fragment"> Gardening is hard</p>
         </section>
 
         <section>
@@ -62,6 +78,13 @@
               <li class="fragment">We're using most arable land and too much water</li>
               <li class="fragment">Food production isn't distributed among food eaters</li>
             </ul>
+          <aside class='notes'>
+              90% arable land, 45% of water withdrawls
+
+              3% of people contribute to growing
+
+              Not working
+          </aside>
         </section>
 
        <section>
@@ -77,15 +100,17 @@
               <li class="fragment">System failure and disease</li>
               <li class="fragment">It's only semi-closed</li>
             </ul>
+          <aside class='notes'>
+              Per acre yield
+
+              Grow indoors
+
+              Can recycle
+          </aside>
         </section>
 
        <section>
-         <h3>NFT</h3>
-         <img src="imgs/nft.jpg" style="background:none; border:none; box-shadow:none; height:450px;">
-       </section>
-
-       <section>
-         <h3>Gardening is hard</h3>
+         <h3>Nutirent Film Technique</h3>
          <img src="imgs/pvc.jpg" style="background:none; border:none; box-shadow:none; height:450px;">
        </section>
 
@@ -100,28 +125,58 @@
         </section>
 
         <section>
+          <img src="imgs/flow.png" style="background:none; border:none; box-shadow:none; height:500px;">
+        </section>
+
+        <section>
             <section>
                 <h1>Container-Gardening</h1>
-                <p>takes measurements, reports them to the database, and controls active components</p>
+                <p>takes measurements, reports data to Gardeners-Log, and controls active components</p>
             </section>
 
             <section>
                 <h3>Raspberry Pi</h3>
                 <img src="imgs/pi.jpg" style="background:none; border:none; box-shadow:none; height:450px;">
+          <aside class='notes'>
+              Uses three microcomputers to interface with components
+
+              Only one is necessary, but built to emulate aspects of extensibility and scalability
+
+              Pi zero is only 5 dollars
+          </aside>
             </section>
 
             <section>
-                <h3>Its Parts</h3>
+                <h3>Contain Parts</h3>
                 <ul>
                   <li class="fragment">The Gardener</li>
-                  <li class="fragment">Controllers</li>
                   <li class="fragment">Sensors and Components</li>
+                  <li class="fragment">Controllers</li>
                 </ul>
             </section>
 
             <section>
                 <h3>Sensors</h3>
                 <img src="imgs/temp.jpg" style="background:none; border:none; box-shadow:none; height:450px;">
+            </section>
+            <section>
+
+            <h3>Measurement</h3>
+            <pre><code class="hljs" data-trim contenteditable>
+import w1thermsensor 
+import schedule
+import time
+import sys
+sys.path.insert(0, '../../reporter')
+from reporter import reporter
+
+reporter = reporter()
+
+def job():
+    sensors = w1thermsensor.W1ThermSensor.get_available_sensors()
+    for sensor in sensors :
+        reporter.send_data("temperature", sensor.get_temperature())
+            </code></pre>
             </section>
 
             <section>
@@ -213,8 +268,8 @@
                   <p>Handles all CRUD operations for the database</p>
                 </b>
                 <ul>
-                  <li class="fragment">Serverless</li>
                   <li class="fragment">Hosted with Amazon Lambda</li>
+                  <li class="fragment">Serverless</li>
                   <li class="fragment">Node functions and DynamoDB</li>
                 </ul>
             </section>
@@ -259,10 +314,9 @@ module.exports.create = (event, context, callback) => {
             <h1>Security</h1>
             <ul>
               <li class="fragment">Passwords are important</li>
-              <li class="fragment">Use best practices</li>
               <li class="fragment">Use third-party providers</li>
-              <li class="fragment">Limit the number of Communicators</li>
-              <li class="fragment">Open data</li>
+              <li class="fragment">Harden your systems</li>
+              <li class="fragment">Limit the number of communicators</li>
             </ul>
         </section>
 
@@ -272,7 +326,6 @@ module.exports.create = (event, context, callback) => {
               <li class="fragment">Victor can scale</li>
               <li class="fragment">Everyone wants data</li>
               <li class="fragment">New parts and sensors</li>
-              <li class="fragment">Issues in IoT</li>
             </ul>
         </section>
 
@@ -296,6 +349,5 @@ module.exports.create = (event, context, callback) => {
         ]
       });
     </script>
-
   </body>
 </html>
